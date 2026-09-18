@@ -2,7 +2,6 @@ package se.fk.github.rtfmanuellkompletteringbff.integration;
 
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
-import jakarta.ws.rs.core.Response;
 import org.eclipse.microprofile.rest.client.inject.RegisterRestClient;
 import se.fk.rimfrost.framework.regel.oul.jaxrsspec.controllers.generatedsource.model.GetUtokadUppgiftsbeskrivningResponse;
 import se.fk.rimfrost.regel.rtf.manuell.komplettering.jaxrsspec.controllers.generatedsource.model.RtfKompletteringData;
@@ -25,12 +24,12 @@ public interface RtfManuellKompletteringClient
          RtfKompletteringData body,
          @HeaderParam("Authorization") String authorization);
 
-   // Response-typed: the backend distinguishes 204 (done), 409 (correlation state already
-   // cleared by timeout) and 422 (yrkande still incomplete). All three are meaningful to the
-   // frontend, so the status is read and forwarded rather than raised as an exception.
+   // The backend answers 204 on success, and 409 (correlation state already cleared by timeout)
+   // or 422 (yrkande still incomplete) otherwise. Both error statuses matter to the frontend and
+   // reach it unchanged via GlobalExceptionMapper, which passes upstream statuses through.
    @POST
    @Path("/{handlaggningId}/done")
-   Response kompletteringDone(
+   void kompletteringDone(
          @PathParam("handlaggningId") String handlaggningId,
          @HeaderParam("Authorization") String authorization);
 

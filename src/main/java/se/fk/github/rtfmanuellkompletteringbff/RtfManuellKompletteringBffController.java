@@ -11,8 +11,6 @@ import se.fk.github.rtfmanuellkompletteringbff.integration.RtfManuellKompletteri
 import se.fk.rimfrost.framework.regel.oul.jaxrsspec.controllers.generatedsource.model.GetUtokadUppgiftsbeskrivningResponse;
 import se.fk.rimfrost.regel.rtf.manuell.komplettering.jaxrsspec.controllers.generatedsource.model.RtfKompletteringData;
 
-import java.util.Map;
-
 @Path("/api")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
@@ -54,19 +52,8 @@ public class RtfManuellKompletteringBffController
          @HeaderParam("Authorization") String authorization)
    {
       LOGGER.debug("POST /api/{}/komplettering/done", handlaggningId);
-      // Response-typed client call: MicroProfile REST Client does not raise exceptions for
-      // non-2xx status here, so backend errors are translated to the same shape the
-      // GlobalExceptionMapper uses for every other endpoint.
-      try (Response backendResponse = backendClient.kompletteringDone(handlaggningId, authorization))
-      {
-         int status = backendResponse.getStatus();
-         if (status >= 400)
-         {
-            LOGGER.error("Upstream error status={} on komplettering done, handlaggningId={}", status, handlaggningId);
-            return Response.status(status).entity(Map.of("error", "Upstream error")).build();
-         }
-         return Response.status(status).build();
-      }
+      backendClient.kompletteringDone(handlaggningId, authorization);
+      return Response.noContent().build();
    }
 
    // uppgiftstyp is accepted in the path for FE compatibility but the backend exposes a single endpoint

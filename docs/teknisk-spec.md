@@ -48,12 +48,12 @@ Ett tomt eller blanktecken-värde passerar däremot valideringen, eftersom spece
 
 ### Statuskoder från slutförandet
 
-`RtfManuellKompletteringClient.kompletteringDone` deklarerar returtypen som
-`jakarta.ws.rs.core.Response` snarare än `void`, eftersom regeltjänstens 204 (klart), 409
-(korrelationstillståndet redan tömt av timeout) och 422 (yrkandet fortfarande ofullständigt)
-alla är meningsfulla utfall för frontend. Kontrollern läser statuskoden och vidarebefordrar
-den, och mappar själv 4xx/5xx till samma felformat som `GlobalExceptionMapper` använder för
-övriga ändpunkter.
+Regeltjänstens 409 (korrelationstillståndet redan tömt av timeout) och 422 (yrkandet
+fortfarande ofullständigt) är båda meningsfulla utfall för frontend och ska nå fram med
+bibehållen statuskod. Det kräver ingen särskild hantering i kontrollern: REST-klienten kastar
+`ClientWebApplicationException` för statuskoder över 400, och `GlobalExceptionMapper`
+vidarebefordrar statuskoden som den är. Kontrollern behöver därför bara hantera lyckat utfall,
+och regeltjänstens framgångssvar är alltid exakt 204.
 
 ### Avbruten anslutning mot regeltjänsten
 
