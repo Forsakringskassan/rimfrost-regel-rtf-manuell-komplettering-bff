@@ -84,7 +84,6 @@ Ingen. Tjänsten har ingen meddelandeintegration.
 
 | Begränsning | Föreslagen åtgärd |
 |---|---|
-| `/utokadUppgiftsbeskrivning` finns i `rimfrost-framework-regel-oul-openapi` och i regeltjänstens `config.yaml`, men exponeras ännu inte av `RegelKompletteringController` — ändpunkten svarar 404 mot dagens backend | Lägg till ändpunkten i kompletteringsramverket, eller flytta den till en delad OUL-baskontroller |
 | Tomt eller blanktecken-värde godtas av `PATCH` och visar sig först som 422 vid `done` | Lägg till `minLength: 1` på båda fälten i `rimfrost-regel-rtf-manuell-komplettering-openapi`, så enforcas regeln av både BFF:n och regeltjänsten |
 | Specen anger både `required` och `nullable: true` på båda fälten, vilket är motsägelsefullt — generatorn löste det som `@NotNull` | Bestäm vilket som gäller och rätta specen |
 | Personnummer valideras inte till format | Bedöm om formatvalidering hör hemma i specen som `pattern` |

@@ -70,14 +70,10 @@ docker run -p 9004:9004 \
 | `GET` | `/api/{handlaggningId}/komplettering` | `GET /{handlaggningId}` | Fetches the current komplettering data (`personnummer`, `avsikt`). |
 | `PATCH` | `/api/{handlaggningId}/komplettering` | `PATCH /{handlaggningId}` | Registers `personnummer` and `avsikt`. Both are required; a missing field is rejected with 400. |
 | `POST` | `/api/{handlaggningId}/komplettering/done` | `POST /{handlaggningId}/done` | Completes the komplettering and closes the OUL task. Forwards the backend status: 204 done, 409 correlation state already cleared, 422 yrkande still incomplete. |
-| `GET` | `/api/uppgiftsbeskrivning/{uppgiftstyp}` | `GET /utokadUppgiftsbeskrivning` | Fetches the task help text. See the caveat below. |
+| `GET` | `/api/uppgiftsbeskrivning/{uppgiftstyp}` | `GET /utokadUppgiftsbeskrivning` | Fetches the task help text from the rule's `config.yaml`. |
 | `GET` | `/q/health` | — | Health check provided by `quarkus-smallrye-health`. |
 
 The `Authorization` header is passed through unchanged on every call that carries one.
 
-> **Caveat:** `/utokadUppgiftsbeskrivning` is declared in `rimfrost-framework-regel-oul-openapi`
-> and the rule service's `config.yaml` carries the text, but `RegelKompletteringController` does
-> not expose the endpoint yet — so `/api/uppgiftsbeskrivning/{uppgiftstyp}` returns 404 against
-> today's backend. See `docs/teknisk-spec.md`.
 
 Health: <http://localhost:9004/q/health>
