@@ -134,24 +134,17 @@ class RtfManuellKompletteringBffControllerTest
             .statusCode(400);
    }
 
-   // The generated RtfKompletteringData carries @NotNull, not @NotBlank, so a blank value passes
-   // validation and reaches the rule service. There it counts as still missing, and the handlaggare
-   // first learns of it when /done answers 422. Pinning that here so it changes visibly if the
-   // OpenAPI spec ever gains minLength: 1 — see docs/teknisk-spec.md.
    @Test
-   void patchKomplettering_forwardsBlankAvsikt()
+   void patchKomplettering_returns400_whenAvsiktIsMissing()
    {
-      WireMockTestResource.getServer().stubFor(patch(urlEqualTo("/" + TEST_ID))
-            .willReturn(aResponse().withStatus(204)));
-
       given()
             .contentType(ContentType.JSON)
             .header("Authorization", "Bearer test-token")
-            .body("{\"personnummer\": \"19800101-1234\", \"avsikt\": \"  \"}")
+            .body("{\"personnummer\": \"910101-1234\"}")
             .when()
             .patch("/api/" + TEST_ID + "/komplettering")
             .then()
-            .statusCode(204);
+            .statusCode(400);
    }
 
    @Test

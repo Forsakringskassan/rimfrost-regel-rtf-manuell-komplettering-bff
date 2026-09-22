@@ -79,14 +79,3 @@ Ingen. Tjänsten har ingen meddelandeintegration.
 ## Liveness
 
 `/q/health`.
-
-## Kända begränsningar och framtida arbete
-
-| Begränsning | Föreslagen åtgärd |
-|---|---|
-| Tomt eller blanktecken-värde godtas av `PATCH` och visar sig först som 422 vid `done` | Lägg till `minLength: 1` på båda fälten i `rimfrost-regel-rtf-manuell-komplettering-openapi`, så enforcas regeln av både BFF:n och regeltjänsten |
-| Specen anger både `required` och `nullable: true` på båda fälten, vilket är motsägelsefullt — generatorn löste det som `@NotNull` | Bestäm vilket som gäller och rätta specen |
-| Personnummer valideras inte till format | Bedöm om formatvalidering hör hemma i specen som `pattern` |
-| Felmeddelanden från regeltjänsten ersätts med ett generellt meddelande, detaljer om felorsak går förlorade | Bevara relevant feldetalj i felresponsen, förslagsvis via `ErrorResponse` från OUL-specen |
-| `{uppgiftstyp}` i beskrivningsändpunkten används inte av bakomliggande tjänst | Klargör om typspecifika beskrivningar behövs |
-| Igenkänning av avbruten anslutning bygger på en stackram i `fk-logging` | Nullskydda `LoggingContextClientResponseFilter` i `fk-logging` och ta bort specialfallet |
