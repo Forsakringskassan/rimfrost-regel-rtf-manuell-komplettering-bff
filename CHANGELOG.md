@@ -2,6 +2,19 @@
 
 Changelog of rimfrost-regel-rtf-manuell-komplettering-bff.
 
+## 0.0.3 (2026-10-30)
+
+### Bug Fixes
+
+-  bump openapi spec dependencies to latest versions ([e3773](https://github.com/Forsakringskassan/rimfrost-regel-rtf-manuell-komplettering-bff/commit/e37737c1fad2363) Ulf Slunga)  
+-  replace secrets with permissions in CI/CD workflows ([a6472](https://github.com/Forsakringskassan/rimfrost-regel-rtf-manuell-komplettering-bff/commit/a647262afa06fd6) Ulf Slunga)  
+-  **deps**  update dependency se.fk.rimfrost.framework.regel.oul:rimfrost-framework-regel-oul-openapi-jaxrs-spec to v0.0.3 ([81f8b](https://github.com/Forsakringskassan/rimfrost-regel-rtf-manuell-komplettering-bff/commit/81f8b09da8f6df0) renovate[bot])  
+
+### Dependency updates
+
+- pin forsakringskassan/.github action to cbd74f1 ([a64ec](https://github.com/Forsakringskassan/rimfrost-regel-rtf-manuell-komplettering-bff/commit/a64ec1c815ae421) renovate[bot])  
+## rimfrost-1_2 (2026-09-22)
+
 ## 0.0.2 (2026-09-22)
 
 ### Bug Fixes
