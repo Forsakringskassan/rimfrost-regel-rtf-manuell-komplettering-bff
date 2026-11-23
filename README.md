@@ -1,7 +1,9 @@
 # rimfrost-regel-rtf-manuell-komplettering-bff
 
 Backend-for-frontend for the RTF manuell komplettering micro-frontend. Proxies komplettering data
-to and from the `rimfrost-regel-rtf-manuell-komplettering` rule service.
+to and from the `rimfrost-regel-rtf-manuell-komplettering` rule service, and publishes an
+informationsaccess event to ILogg (Kafka) whenever komplettering data is shown. Built on
+`rimfrost-framework-bff` (error mapping, `Authorization` forwarding, ILogg client).
 
 This project uses Quarkus, the Supersonic Subatomic Java Framework.
 
@@ -31,6 +33,7 @@ To run the full build locally (mirrors CI, skips Docker):
 |---|---|---|
 | `BACKEND_URL` | `http://localhost:8080/regel/rtf-manuell-komplettering` | Full base URL of the komplettering rule service, including the rule path. No trailing slash. |
 | `CORS_ORIGINS` | `http://localhost:3000,http://localhost:3030` | Comma-separated list of allowed CORS origins. |
+| `MP_MESSAGING_CONNECTOR_SMALLRYE_KAFKA_BOOTSTRAP_SERVERS` | `localhost:9092` | Kafka bootstrap servers for informationsaccess events (topic `informationsaccess`). Required: without a reachable Kafka, `GET /api/{handlaggningId}/komplettering` answers 500. |
 
 ## Packaging and running the application
 
@@ -67,7 +70,7 @@ docker run -p 9004:9004 \
 
 | Method | Path | Backend call | Description |
 |---|---|---|---|
-| `GET` | `/api/{handlaggningId}/komplettering` | `GET /{handlaggningId}` | Fetches the current komplettering data (`personnummer`, `avsikt`). |
+| `GET` | `/api/{handlaggningId}/komplettering` | `GET /{handlaggningId}` | Fetches the current komplettering data (`personnummer`, `avsikt`). The backend wraps it as `{data, informationsaccess}`; only `data` is returned, and an informationsaccess event is published first. |
 | `PATCH` | `/api/{handlaggningId}/komplettering` | `PATCH /{handlaggningId}` | Registers `personnummer` and `avsikt`. Both are required; a missing field is rejected with 400. |
 | `POST` | `/api/{handlaggningId}/komplettering/done` | `POST /{handlaggningId}/done` | Completes the komplettering and closes the OUL task. Forwards the backend status: 204 done, 409 correlation state already cleared, 422 yrkande still incomplete. |
 | `GET` | `/api/uppgiftsbeskrivning/{uppgiftstyp}` | `GET /utokadUppgiftsbeskrivning` | Fetches the task help text from the rule's `config.yaml`. |

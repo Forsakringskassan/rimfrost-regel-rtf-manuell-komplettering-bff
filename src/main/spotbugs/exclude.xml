@@ -1,0 +1,8 @@
+<FindBugsFilter>
+  <!-- Records used as internal DTOs — EI_EXPOSE_REP is a false positive;
+       objects are never mutated externally; they carry data through the BFF layer. -->
+  <Match>
+    <Bug pattern="EI_EXPOSE_REP,EI_EXPOSE_REP2"/>
+    <Class name="se.fk.github.rtfmanuellkompletteringbff.model.BackendGetResponse"/>
+  </Match>
+</FindBugsFilter>
