@@ -2,6 +2,11 @@
 
 Changelog of rimfrost-regel-rtf-manuell-komplettering-bff.
 
+## 0.0.0 (2026-11-07)
+
+### Dependency updates
+
+- update forsakringskassan/.github digest to cbc0db8 ([13484](https://github.com/Forsakringskassan/rimfrost-regel-rtf-manuell-komplettering-bff/commit/134844be47a5092) renovate[bot])  
 ## 0.0.3 (2026-10-30)
 
 ### Bug Fixes
