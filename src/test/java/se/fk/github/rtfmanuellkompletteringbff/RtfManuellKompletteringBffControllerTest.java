@@ -73,7 +73,7 @@ class RtfManuellKompletteringBffControllerTest
    }
 
    @Test
-   @DisplayName("RTFKB-FR-05.3: Kompletteringsdata packas upp ur regeltjänstens svar")
+   @DisplayName("RTFKB-FR-01.1: Kompletteringsdata packas upp ur regeltjänstens svar och returneras oförändrad")
    void getKomplettering_returnsBackendData()
    {
       WireMockTestResource.getServer().stubFor(get(urlEqualTo("/" + TEST_ID))

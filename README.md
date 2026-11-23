@@ -17,6 +17,8 @@ You can run your application in dev mode that enables live coding using:
 ./mvnw compile quarkus:dev
 ```
 
+Dev mode starts Kafka through Quarkus Dev Services (needs Docker) for the informationsaccess events. To use an existing Kafka instead, set `MP_MESSAGING_CONNECTOR_SMALLRYE_KAFKA_BOOTSTRAP_SERVERS`.
+
 > **_NOTE:_** Quarkus now ships with a Dev UI, which is available in dev mode only at <http://localhost:9004/q/dev/>.
 
 The application runs on port **9004** by default.

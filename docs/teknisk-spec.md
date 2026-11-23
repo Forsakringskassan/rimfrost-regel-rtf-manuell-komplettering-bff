@@ -80,7 +80,7 @@ i `fk-logging` läser dem utan nullkontroll. Det resulterande `NullPointerExcept
 `IOException` någonstans i sin kedja, och ramverkets `GlobalExceptionMapper` svarar därför 500.
 `LoggingFilterNpeMapper` mappar `NullPointerException` (mer specifik än ramverkets
 `Exception`-hanterare), känner igen just den NPE:n på den stackram den kastats från och svarar
-502. Andra NPE:er får samma 500 som ramverket ger. Skulle `fk-logging` framöver nullskydda
+502. Andra NPE:er lämnas tillbaka till ramverkets hanterare och får samma svar som där. Skulle `fk-logging` framöver nullskydda
 anropet, eller ramverket själv känna igen fallet, kan klassen tas bort.
 
 ## Kafka-integration
