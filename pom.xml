@@ -53,6 +53,18 @@
     </dependency>
 
     <dependency>
+      <groupId>io.smallrye.reactive</groupId>
+      <artifactId>smallrye-reactive-messaging-in-memory</artifactId>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>io.quarkus</groupId>
+      <artifactId>quarkus-junit5-mockito</artifactId>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
       <groupId>se.fk.rimfrost.regel.rtf.manuell.komplettering</groupId>
       <artifactId>rimfrost-regel-rtf-manuell-komplettering-openapi-jaxrs-spec</artifactId>
       <version>0.0.2</version>
@@ -61,6 +73,12 @@
     <dependency>
       <groupId>se.fk.rimfrost.framework.regel.oul</groupId>
       <artifactId>rimfrost-framework-regel-oul-openapi-jaxrs-spec</artifactId>
+      <version>0.0.4</version>
+    </dependency>
+
+    <dependency>
+      <groupId>se.fk.rimfrost.framework.bff</groupId>
+      <artifactId>rimfrost-framework-bff</artifactId>
       <version>0.0.4</version>
     </dependency>
 
@@ -92,6 +110,9 @@
       <plugin>
         <groupId>com.github.spotbugs</groupId>
         <artifactId>spotbugs-maven-plugin</artifactId>
+        <configuration>
+          <excludeFilterFile>src/main/spotbugs/exclude.xml</excludeFilterFile>
+        </configuration>
       </plugin>
     </plugins>
   </build>

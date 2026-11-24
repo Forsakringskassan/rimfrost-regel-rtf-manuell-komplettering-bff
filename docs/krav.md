@@ -18,6 +18,7 @@ generiska ramverk den bygger på.
 |---|---|
 | RTF Manuell Komplettering Frontend | Anropar BFF:n för att hämta och registrera kompletterande uppgifter |
 | RTF Manuell Komplettering-regeltjänsten | Bakomliggande tjänst som äger handläggningens yrkandedata |
+| ILogg | Tar emot informationsaccess-event för den information som visas för handläggaren |
 
 ---
 
@@ -26,7 +27,7 @@ generiska ramverk den bygger på.
 ### RTFKB-FR-01 — Hämta kompletteringsunderlag
 
 - **RTFKB-FR-01.1** BFF:n ska kunna hämta aktuell kompletteringsdata för en given handläggning
-  från bakomliggande regeltjänst och returnera den oförändrad till frontend.
+  från bakomliggande regeltjänst och returnera kompletteringsdatan oförändrad till frontend.
 - **RTFKB-FR-01.2** Kompletteringsdata ska kunna returneras även när fälten saknar värde,
   eftersom avsaknaden av värde är själva anledningen till att komplettering krävs.
 - **RTFKB-FR-01.3** BFF:n ska kunna hämta en hjälptext för en uppgiftstyp, oavsett vilken
@@ -59,6 +60,20 @@ generiska ramverk den bygger på.
 - **RTFKB-FR-04.3** Felsvar från BFF:n ska ha ett enhetligt format oavsett vilken ändpunkt som
   anropats.
 
+### RTFKB-FR-05 — Informationsaccess vid hämtning av kompletteringsunderlag
+
+- **RTFKB-FR-05.1** Vid hämtning av kompletteringsunderlag (RTFKB-FR-01.1) ska BFF:n publicera
+  ett informationsaccess-event via ILogg (FBFF-FR-05). Eventets `visadInformation` ska vara den
+  data som skickas till frontend.
+- **RTFKB-FR-05.2** Eventet ska ange användare, uppgift, regel och regelversion från
+  regeltjänstens informationsaccessdata, handläggningsid, tidpunkt, källan
+  `rimfrost-regel-rtf-manuell-komplettering-bff` och ett eget id.
+- **RTFKB-FR-05.3** Informationsaccessdata ska inte skickas vidare till frontend.
+- **RTFKB-FR-05.4** Misslyckad hämtning, hämtning av hjälptext (RTFKB-FR-01.3), registrering
+  (RTFKB-FR-02) och slutförande (RTFKB-FR-03) ska inte ge något event.
+- **RTFKB-FR-05.5** Om eventet inte kan publiceras ska BFF:n returnera ett fel till frontend
+  utan att skicka kompletteringsdatan, så att ingen information visas utan att det loggas.
+
 ---
 
 ## Icke-funktionella krav
@@ -86,5 +101,6 @@ generiska ramverk den bygger på.
 
 ## Integration med RTF Manuell Komplettering-regeltjänsten
 
-BFF:n är en ren synkron REST-till-REST-integration mot regeltjänsten, som i sin tur bygger på
-det generiska kompletteringsramverket. BFF:n lagrar inget tillstånd själv.
+BFF:n är en synkron REST-till-REST-integration mot regeltjänsten, som i sin tur bygger på
+det generiska kompletteringsramverket. BFF:n lagrar inget tillstånd själv. Vid hämtning av
+kompletteringsunderlag ska BFF:n publicera ett informationsaccess-event på Kafka (RTFKB-FR-05).
