@@ -2,6 +2,13 @@
 
 Changelog of rimfrost-regel-rtf-manuell-komplettering-bff.
 
+## 0.0.4 (2026-11-24)
+
+### Bug Fixes
+
+-  address review comments (FKPOC-1498) ([f92fd](https://github.com/Forsakringskassan/rimfrost-regel-rtf-manuell-komplettering-bff/commit/f92fd8814b0273b) LisaWedin_Ductus)  
+-  unwrap backend GET response and publish informationsaccess via rimfrost-framework-bff (FKPOC-1498) ([3d2ad](https://github.com/Forsakringskassan/rimfrost-regel-rtf-manuell-komplettering-bff/commit/3d2adfdd1603883) LisaWedin_Ductus)  
+
 ## 0.0.0 (2026-11-07)
 
 ### Dependency updates
